@@ -6,3 +6,5 @@ requests
 cryptography
 python-dotenv
 pytest
+flask
+flask-cors
