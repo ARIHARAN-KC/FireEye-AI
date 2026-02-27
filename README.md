@@ -17,5 +17,6 @@ FOLLOW THE BELOW STEPS ONE BY ONE
 4) To run the
      python app.py
 
-   You will see the [ http://localhost:5](http://127.0.0.1:5000)
+   You will see the [ http://localhost:5000](http://127.0.0.1:5000)
    
+
