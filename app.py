@@ -54,7 +54,7 @@ def signup():
 #---------send alert Notification is fire is detected---------
 def send_fire_alert(frame):
 
-    with app.app_context():   # ✅ FIX: create Flask context
+    with app.app_context():
 
         users = users_collection.find({}, {"email": 1})
 
@@ -92,8 +92,6 @@ FireEye AI System
                 )
 
             mail.send(msg)
-
-        print("🔥 Email alert sent successfully")
 
 notification_service = NotificationService(app, mail, users_collection, Config)
 
@@ -157,7 +155,7 @@ def detect_image():
 
     boxes = results[0].boxes
 
-    # 🔥 FIRE DETECTED → SEND EMAIL
+    # FIRE DETECTED → SEND EMAIL
     if boxes is not None and len(boxes) > 0:
         frame = cv2.imread(filepath)
         notification_service.send_fire_email(frame)
@@ -193,14 +191,12 @@ def generate_frames():
 
         boxes = results[0].boxes
 
-        # 🔥 Fire detected
+        # Fire detected
         if boxes is not None and len(boxes) > 0:
 
             current_time = time.time()
 
             if current_time - last_alert_time > ALERT_COOLDOWN:
-
-                print("🔥 Fire detected! Sending email...")
 
                 send_fire_alert(frame)
 
