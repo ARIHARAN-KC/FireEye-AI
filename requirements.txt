@@ -8,3 +8,7 @@ python-dotenv
 pytest
 flask
 flask-cors
+python-dotenv
+pymongo
+flask-bcrypt
+flask_mail

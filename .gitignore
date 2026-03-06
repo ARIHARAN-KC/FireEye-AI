@@ -11,6 +11,7 @@ tests/test_data
 tologo.py
 *.log
 logs/
+.venv
 *.bin
 data
 detected_fires

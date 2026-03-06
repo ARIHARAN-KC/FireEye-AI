@@ -38,6 +38,13 @@ class Config:
     MODEL_PATH = PROJECT_ROOT / 'models' / 'best_nano_111.pt'
     VIDEO_SOURCE = PROJECT_ROOT / 'data' / 'police_car_fire_ccvt.mp4'
     DETECTED_FIRES_DIR = PROJECT_ROOT / 'detected_fires'
+    
+    #Mail configuration
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
+    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 
     ALERT_COOLDOWN = 45  # Seconds between alerts
 
