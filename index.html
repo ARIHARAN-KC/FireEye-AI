@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>FireEye AI · YOLO Object Detection</title>
     <!-- Font Awesome 6 for premium icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -35,7 +35,7 @@
             /* Dark but vibrant background */
             --bg-dark: #2d3436;
             --bg-darker: #1e272e;
-            --bg-card: rgba(45, 52, 54, 0.8);
+            --bg-card: rgba(45, 52, 54, 0.95);
             --bg-gradient: linear-gradient(145deg, #2d3436, #1e272e);
 
             /* Text colors with high visibility */
@@ -55,10 +55,18 @@
             --gradient-accent: linear-gradient(145deg, #ffe66d, #ff6b6b);
             --gradient-dark: linear-gradient(145deg, #2d3436, #1e272e);
 
-            --border-radius-lg: 32px;
-            --border-radius-md: 24px;
-            --border-radius-sm: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-md: 18px;
+            --border-radius-sm: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 40px;
         }
 
         body {
@@ -68,12 +76,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: var(--space-md);
             position: relative;
             color: var(--text-primary);
+            line-height: 1.5;
         }
 
-        /* Animated background elements with new colors */
+        /* Animated background elements */
         .bg-orb {
             position: fixed;
             width: 600px;
@@ -161,78 +170,47 @@
             width: 100%;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
         }
 
-        /* Header with new styling */
+        /* Header with improved responsive design */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: var(--space-md);
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
-            border-radius: 80px;
-            padding: 12px 24px;
+            border-radius: 50px;
+            padding: var(--space-sm) var(--space-md);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            flex-wrap: wrap;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: var(--space-md);
+            flex: 1 1 auto;
+            min-width: 200px;
         }
 
         .logo-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: var(--gradient-primary);
-            border-radius: 20px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 24px;
             color: white;
             box-shadow: 0 15px 30px -10px rgba(255, 107, 107, 0.5);
             position: relative;
             overflow: hidden;
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-
-            0%,
-            100% {
-                box-shadow: 0 15px 30px -10px rgba(255, 107, 107, 0.5);
-            }
-
-            50% {
-                box-shadow: 0 20px 40px -5px rgba(255, 107, 107, 0.8);
-            }
-        }
-
-        .logo-icon::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: rotate(45deg);
-            animation: shine 6s ease-in-out infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(45deg);
-            }
-
-            20%,
-            100% {
-                transform: translateX(100%) rotate(45deg);
-            }
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -241,46 +219,58 @@
         }
 
         .logo-main {
-            font-size: 32px;
+            font-size: clamp(20px, 4vw, 28px);
             font-weight: 800;
             background: linear-gradient(145deg, #fff, var(--text-accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
         .logo-sub {
-            font-size: 14px;
+            font-size: clamp(11px, 2vw, 13px);
             color: var(--text-muted);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
+        .how-it-works-btn {
+            width: auto !important;
+            padding: 10px 20px !important;
+            background: rgba(255, 107, 107, 0.1) !important;
+            border-color: rgba(255, 107, 107, 0.2) !important;
+            white-space: nowrap;
+        }
+
         .header-stats {
             display: flex;
-            gap: 24px;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 8px 20px;
+            gap: var(--space-sm);
+            padding: 6px 16px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 60px;
+            border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .stat-icon {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             background: var(--gradient-secondary);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
+            font-size: 14px;
+            flex-shrink: 0;
         }
 
         .stat-info {
@@ -289,83 +279,52 @@
         }
 
         .stat-value {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-primary);
+            line-height: 1.3;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--text-muted);
+            line-height: 1.2;
         }
 
-        /* User Menu Styles */
+        /* User Menu Styles - Improved */
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: var(--space-md);
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 60px;
-            padding: 8px 8px 8px 16px;
+            border-radius: 50px;
+            padding: 6px 6px 6px 16px;
             backdrop-filter: blur(10px);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-        }
-
-        .user-menu::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .user-menu:hover::before {
-            opacity: 1;
-        }
-
-        .user-menu:hover {
-            border-color: rgba(255, 107, 107, 0.4);
-            box-shadow: 0 10px 30px -10px rgba(255, 107, 107, 0.3);
-            transform: translateY(-2px);
+            flex-wrap: wrap;
         }
 
         .user-avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: var(--gradient-primary);
-            border-radius: 45px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             box-shadow: 0 10px 20px -5px rgba(255, 107, 107, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .user-avatar::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: rotate(45deg);
-            animation: shine 6s ease-in-out infinite;
+            flex-shrink: 0;
         }
 
         .user-info {
             display: flex;
             flex-direction: column;
+            min-width: 120px;
         }
 
         .user-name {
@@ -373,126 +332,47 @@
             font-weight: 600;
             color: var(--text-primary);
             line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         .user-email {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
             line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         .logout-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+            gap: var(--space-sm);
+            padding: 8px 16px;
             background: rgba(255, 107, 107, 0.1);
             border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 45px;
+            border-radius: 40px;
             color: var(--primary-light);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            margin-left: 8px;
+            white-space: nowrap;
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 107, 107, 0.2);
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateX(2px);
-        }
-
-        .logout-btn i {
-            font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .logout-btn:hover i {
-            transform: translateX(3px);
-        }
-
-        /* Animation for user menu */
-        @keyframes slideInUser {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .user-menu {
-            animation: slideInUser 0.5s ease-out forwards;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .app-header {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .user-menu {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: 10px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .user-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 12px;
-            }
-
-            .user-info {
-                text-align: center;
-            }
-
-            .logout-btn {
-                width: 100%;
-                justify-content: center;
-                margin-left: 0;
-                margin-top: 8px;
-            }
-        }
-
-        /* Logout button loading state */
-        .logout-btn.loading {
-            color: transparent !important;
-            pointer-events: none;
-            position: relative;
-        }
-
-        .logout-btn.loading::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--primary);
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Main grid layout */
+        /* Main grid layout - Improved */
         .detection-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+            gap: var(--space-lg);
+            width: 100%;
         }
 
-        /* Cards with new color scheme */
+        /* Cards with improved spacing */
         .detection-card {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
@@ -504,141 +384,100 @@
             transition: var(--transition);
             height: fit-content;
             position: relative;
-        }
-
-        .detection-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .detection-card:hover::before {
-            opacity: 1;
-        }
-
-        .detection-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 107, 107, 0.2);
-            box-shadow: 0 30px 60px -15px rgba(255, 107, 107, 0.3);
+            width: 100%;
         }
 
         .card-header {
-            padding: 24px;
+            padding: var(--space-lg);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: var(--space-md);
+            flex-wrap: wrap;
         }
 
         .card-icon {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             background: var(--gradient-primary);
-            border-radius: 16px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             color: white;
+            flex-shrink: 0;
         }
 
         .card-title {
             flex: 1;
+            min-width: 140px;
         }
 
         .card-title h2 {
-            font-size: 22px;
+            font-size: clamp(18px, 3vw, 20px);
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             background: linear-gradient(145deg, #fff, var(--text-accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .card-title p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
         .card-badge {
-            padding: 6px 16px;
+            padding: 4px 12px;
             background: rgba(255, 107, 107, 0.1);
             border: 1px solid rgba(255, 107, 107, 0.2);
             border-radius: 40px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--primary-light);
+            white-space: nowrap;
         }
 
         .card-body {
-            padding: 24px;
+            padding: var(--space-lg);
         }
 
-        /* Upload area with new colors */
+        /* Upload area */
         .upload-area {
             border: 2px dashed rgba(255, 107, 107, 0.3);
             border-radius: var(--border-radius-md);
-            padding: 40px 24px;
+            padding: clamp(20px, 5vw, 40px) var(--space-md);
             text-align: center;
             transition: var(--transition);
-            margin-bottom: 20px;
+            margin-bottom: var(--space-lg);
             cursor: pointer;
-            position: relative;
             background: rgba(255, 107, 107, 0.02);
-        }
-
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: rgba(255, 107, 107, 0.05);
-        }
-
-        .upload-area.dragover {
-            border-color: var(--secondary);
-            background: rgba(78, 205, 196, 0.05);
-            transform: scale(1.02);
+            width: 100%;
         }
 
         .upload-icon {
-            font-size: 48px;
+            font-size: 42px;
             color: var(--primary);
-            margin-bottom: 16px;
-            animation: float-icon 3s ease-in-out infinite;
-        }
-
-        @keyframes float-icon {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+            margin-bottom: var(--space-md);
         }
 
         .upload-area h3 {
-            font-size: 18px;
+            font-size: clamp(16px, 3vw, 18px);
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: var(--space-sm);
             color: var(--text-primary);
         }
 
         .upload-area p {
             color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 16px;
+            font-size: clamp(13px, 2.5vw, 14px);
+            margin-bottom: var(--space-md);
         }
 
         .upload-hint {
             display: inline-block;
-            padding: 6px 16px;
+            padding: 6px 14px;
             background: rgba(255, 107, 107, 0.1);
             border-radius: 40px;
             font-size: 12px;
@@ -646,51 +485,46 @@
         }
 
         .file-info {
-            margin-top: 20px;
-            padding: 16px;
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
             background: rgba(78, 205, 196, 0.05);
             border: 1px solid rgba(78, 205, 196, 0.2);
             border-radius: var(--border-radius-sm);
             display: none;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .file-info.active {
-            display: flex;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            width: 100%;
         }
 
         .file-details {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: var(--space-md);
+            min-width: 0;
+            flex: 1;
         }
 
         .file-details i {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        .file-details div {
+            min-width: 0;
+            flex: 1;
         }
 
         .file-name {
             font-weight: 600;
             color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .file-size {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
         }
 
@@ -703,57 +537,36 @@
             color: var(--danger);
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .remove-file:hover {
-            background: rgba(214, 48, 49, 0.2);
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        /* Buttons with new gradients */
+        /* Buttons */
         .btn {
             width: 100%;
-            padding: 16px;
-            border-radius: 60px;
+            padding: 14px 20px;
+            border-radius: 50px;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: var(--space-sm);
             position: relative;
             overflow: hidden;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .btn-primary {
             background: var(--gradient-primary);
             color: white;
-            box-shadow: 0 10px 30px -5px rgba(255, 107, 107, 0.5);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px -5px rgba(255, 107, 107, 0.7);
         }
 
         .btn-secondary {
@@ -762,22 +575,331 @@
             color: var(--text-secondary);
         }
 
-        .btn-secondary:hover {
-            border-color: var(--secondary);
-            color: white;
-            background: rgba(78, 205, 196, 0.1);
+        /* Webcam container - Fixed */
+        .webcam-container {
+            position: relative;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            background: var(--bg-darker);
+            aspect-ratio: 16/9;
+            margin-bottom: var(--space-md);
+            border: 2px solid rgba(255, 107, 107, 0.2);
+            width: 100%;
         }
 
-        .btn-success {
-            background: var(--gradient-secondary);
-            color: white;
+        #webcamFeed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .webcam-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-darker);
+            color: var(--text-muted);
+            gap: var(--space-md);
+            padding: var(--space-md);
+            text-align: center;
+            z-index: 1;
         }
 
+        .webcam-active .webcam-placeholder {
+            display: none;
+        }
+
+        .webcam-active #webcamFeed {
+            display: block;
+        }
+
+        .webcam-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            width: 100%;
+        }
+
+        /* Result section */
+        .result-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .result-header h3 {
+            font-size: clamp(18px, 3vw, 20px);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--text-primary);
+            flex-wrap: wrap;
+        }
+
+        .result-stats {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .result-stat {
+            text-align: center;
+            padding: 6px 16px;
+            background: rgba(78, 205, 196, 0.05);
+            border: 1px solid rgba(78, 205, 196, 0.1);
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .result-stat span {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .result-stat strong {
+            font-size: 14px;
+            color: var(--secondary);
+        }
+
+        .result-image-container {
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            background: var(--bg-darker);
+            max-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 107, 107, 0.2);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        #outputImage {
+            max-width: 100%;
+            max-height: 500px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .empty-result {
+            text-align: center;
+            padding: clamp(30px, 8vw, 60px) var(--space-lg);
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius-md);
+            width: 100%;
+        }
+
+        .empty-result i {
+            font-size: clamp(40px, 8vw, 60px);
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: var(--space-lg);
+        }
+
+        .empty-result h4 {
+            font-size: clamp(16px, 3vw, 18px);
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+
+        .empty-result p {
+            font-size: clamp(13px, 2.5vw, 14px);
+        }
+
+        /* Detection badges */
+        .detection-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 40px;
+            font-size: 12px;
+            color: var(--primary-light);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        #detectionList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        /* Toast notification - Improved position */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 50px;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transform: translateY(100px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        @media (min-width: 768px) {
+            .toast {
+                left: auto;
+                right: 30px;
+                min-width: 300px;
+            }
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .app-header {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 30px;
+            }
+
+            .logo-area {
+                justify-content: center;
+            }
+
+            .header-stats {
+                justify-content: center;
+            }
+
+            .user-menu {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-sm);
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-icon {
+                margin-bottom: var(--space-xs);
+            }
+
+            .card-badge {
+                align-self: flex-start;
+            }
+
+            .webcam-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .webcam-controls .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-item {
+                padding: 4px 10px;
+            }
+
+            .stat-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .stat-value {
+                font-size: 12px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .user-info {
+                min-width: 100px;
+            }
+
+            .user-name,
+            .user-email {
+                max-width: 120px;
+            }
+
+            .logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .btn {
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+
+            .detection-badge {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .mt-2 {
+            margin-top: var(--space-md);
+        }
+
+        .mb-2 {
+            margin-bottom: var(--space-md);
+        }
+
+        /* Loading states */
         .btn.loading {
             color: transparent !important;
             pointer-events: none;
@@ -800,249 +922,26 @@
             }
         }
 
-        /* Webcam container */
-        .webcam-container {
+        .logout-btn.loading {
+            color: transparent !important;
+            pointer-events: none;
             position: relative;
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-            background: var(--bg-darker);
-            aspect-ratio: 16/9;
-            margin-top: 20px;
-            border: 2px solid rgba(255, 107, 107, 0.2);
         }
 
-        #webcamFeed {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-            border-radius: var(--border-radius-md);
-        }
-
-        .webcam-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-darker);
-            color: var(--text-muted);
-            gap: 16px;
-        }
-
-        .webcam-placeholder i {
-            font-size: 48px;
-            color: var(--primary);
-            opacity: 0.5;
-        }
-
-        .webcam-active .webcam-placeholder {
-            display: none;
-        }
-
-        #webcamFeed.active {
-            display: block;
-        }
-
-        .webcam-controls {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .webcam-controls .btn {
-            flex: 1;
-        }
-
-        /* Result section */
-        .result-section {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius-lg);
-            padding: 30px;
-            margin-top: 30px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .result-section::after {
+        .logout-btn.loading::after {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--primary);
+            border-top-color: transparent;
             border-radius: 50%;
-            pointer-events: none;
+            animation: spin 0.8s linear infinite;
         }
 
-        .result-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .result-header h3 {
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-primary);
-        }
-
-        .result-header h3 i {
-            color: var(--secondary);
-        }
-
-        .result-stats {
-            display: flex;
-            gap: 20px;
-        }
-
-        .result-stat {
-            text-align: center;
-            padding: 8px 20px;
-            background: rgba(78, 205, 196, 0.05);
-            border: 1px solid rgba(78, 205, 196, 0.1);
-            border-radius: 40px;
-        }
-
-        .result-stat span {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .result-stat strong {
-            font-size: 18px;
-            color: var(--secondary);
-        }
-
-        .result-image-container {
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-            background: var(--bg-darker);
-            max-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 107, 107, 0.2);
-            transition: var(--transition);
-        }
-
-        .result-image-container:hover {
-            border-color: var(--secondary);
-        }
-
-        #outputImage {
-            max-width: 100%;
-            max-height: 500px;
-            object-fit: contain;
-            transition: var(--transition);
-        }
-
-        .empty-result {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-muted);
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: var(--border-radius-md);
-        }
-
-        .empty-result i {
-            font-size: 80px;
-            color: var(--primary);
-            opacity: 0.3;
-            margin-bottom: 20px;
-        }
-
-        .empty-result h4 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        /* Detection badges */
-        .detection-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 40px;
-            font-size: 13px;
-            color: var(--primary-light);
-            transition: var(--transition);
-        }
-
-        .detection-badge:hover {
-            background: rgba(255, 107, 107, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .detection-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .header-stats {
-                width: 100%;
-                justify-content: space-around;
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .card-header {
-                flex-wrap: wrap;
-            }
-
-            .result-header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-
-            .result-stats {
-                width: 100%;
-                justify-content: space-between;
-            }
-        }
-
-        /* Custom scrollbar with new colors */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
@@ -1051,68 +950,23 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--gradient-primary);
-            border-radius: 5px;
+            border-radius: 4px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gradient-secondary);
-        }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 60px;
-            padding: 16px 24px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        .toast.success {
-            border-left: 4px solid var(--success);
-        }
-
-        .toast.error {
-            border-left: 4px solid var(--danger);
-        }
-
-        .toast.warning {
-            border-left: 4px solid var(--warning);
-        }
-
-        .toast.info {
-            border-left: 4px solid var(--info);
-        }
-
-        /* Loading skeleton animation */
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-
-            100% {
-                background-position: 1000px 0;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .loading-skeleton {
-            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.1));
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
@@ -1126,7 +980,6 @@
 
     <div class="app-container">
         <!-- Header -->
-        <!-- Header -->
         <header class="app-header">
             <div class="logo-area">
                 <div class="logo-icon">
@@ -1139,10 +992,9 @@
             </div>
 
             <!-- How it Works Button -->
-            <button class="btn btn-secondary" onclick="goToHowItWorks()"
-                style="width: auto; padding: 12px 24px; background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2);">
+            <button class="btn how-it-works-btn" onclick="goToHowItWorks()">
                 <i class="fas fa-question-circle"></i>
-                How it Works
+                <span>How it Works</span>
             </button>
 
             <div class="header-stats">
@@ -1236,7 +1088,7 @@
                         Analyze Image
                     </button>
 
-                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <div class="mt-2" style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
                         <span class="detection-badge">
                             <i class="fas fa-bolt"></i> Real-time
                         </span>
@@ -1250,7 +1102,7 @@
                 </div>
             </div>
 
-            <!-- Webcam Card -->
+            <!-- Webcam Card - Fixed with video element -->
             <div class="detection-card">
                 <div class="card-header">
                     <div class="card-icon">
@@ -1264,7 +1116,8 @@
                 </div>
                 <div class="card-body">
                     <div class="webcam-container" id="webcamContainer">
-                        <img id="webcamFeed" width="100%" alt="Webcam feed">
+                        <!-- Changed from img to video element -->
+                        <video id="webcamFeed" autoplay playsinline></video>
                         <div class="webcam-placeholder">
                             <i class="fas fa-video"></i>
                             <h4>Camera is offline</h4>
@@ -1288,7 +1141,7 @@
                         </button>
                     </div>
 
-                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <div class="mt-2" style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
                         <span class="detection-badge">
                             <i class="fas fa-gauge"></i> 30 FPS
                         </span>
@@ -1333,11 +1186,11 @@
                 </div>
             </div>
 
-            <div id="detectionDetails" style="margin-top: 25px; display: none;">
-                <h4 style="margin-bottom: 16px; color: var(--text-secondary); font-size: 18px;">
+            <div id="detectionDetails" style="margin-top: var(--space-lg); display: none;">
+                <h4 style="margin-bottom: var(--space-md); color: var(--text-secondary); font-size: 16px;">
                     <i class="fas fa-tags"></i> Detected Objects
                 </h4>
-                <div id="detectionList" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                <div id="detectionList"></div>
             </div>
         </div>
     </div>
@@ -1352,6 +1205,7 @@
         // File handling variables
         let selectedFile = null;
         let webcamActive = false;
+        let webcamStream = null;
 
         // File upload handling
         function handleFileSelect(event) {
@@ -1406,8 +1260,15 @@
             document.getElementById('uploadArea').classList.remove('dragover');
         }
 
-        // Image detection function (original API call preserved)
+        // Image detection function
         function detectImage() {
+            const user = JSON.parse(localStorage.getItem('fireeye_user'));
+            if (!user) {
+                showToast('Please login first', 'warning');
+                window.location.href = '/auth';
+                return;
+            }
+
             if (!selectedFile) {
                 showToast('Please select an image first!', 'warning');
                 return;
@@ -1442,21 +1303,21 @@
                     document.getElementById('resultStats').style.display = 'flex';
                     document.getElementById('detectionDetails').style.display = 'block';
 
-                    // Simulate detection stats (in real app, these would come from the API)
+                    // Simulate detection stats
                     const objectCount = Math.floor(Math.random() * 8) + 1;
                     document.getElementById('objectCount').textContent = objectCount;
                     document.getElementById('inferenceTime').textContent = Math.floor(Math.random() * 50) + 20 + 'ms';
 
-                    // Simulate detected objects with colorful tags
+                    // Simulate detected objects
                     const objects = [
-                        { name: 'person', icon: 'fa-person' },
+                        { name: 'person', icon: 'fa-user' },
                         { name: 'car', icon: 'fa-car' },
                         { name: 'dog', icon: 'fa-dog' },
                         { name: 'cat', icon: 'fa-cat' },
                         { name: 'bottle', icon: 'fa-wine-bottle' },
                         { name: 'chair', icon: 'fa-chair' },
                         { name: 'book', icon: 'fa-book' },
-                        { name: 'phone', icon: 'fa-mobile' }
+                        { name: 'phone', icon: 'fa-mobile-alt' }
                     ];
 
                     const shuffled = objects.sort(() => 0.5 - Math.random());
@@ -1481,40 +1342,68 @@
                 });
         }
 
-        // Webcam functions (original API call preserved)
-        function startWebcam() {
-            const webcamFeed = document.getElementById("webcamFeed");
-            const container = document.getElementById("webcamContainer");
-            const status = document.getElementById("webcamStatus");
-            const startBtn = document.getElementById("startWebcamBtn");
-            const stopBtn = document.getElementById("stopWebcamBtn");
+        // Fixed webcam functions using getUserMedia
+        async function startWebcam() {
+            const user = JSON.parse(localStorage.getItem('fireeye_user'));
+            if (!user) {
+                showToast('Please login first', 'warning');
+                window.location.href = '/auth';
+                return;
+            }
 
-            webcamFeed.style.display = "block";
-            webcamFeed.src = "/video_feed";
-            webcamFeed.classList.add('active');
+            try {
+                const webcamFeed = document.getElementById("webcamFeed");
+                const container = document.getElementById("webcamContainer");
+                const status = document.getElementById("webcamStatus");
+                const startBtn = document.getElementById("startWebcamBtn");
+                const stopBtn = document.getElementById("stopWebcamBtn");
 
-            container.classList.add('webcam-active');
-            status.textContent = 'Live';
-            status.style.color = 'var(--success)';
+                // Request camera access
+                webcamStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: "user"
+                    }, 
+                    audio: false 
+                });
+                
+                // Set the video stream
+                webcamFeed.srcObject = webcamStream;
+                
+                // Update UI
+                container.classList.add('webcam-active');
+                status.textContent = 'Live';
+                status.style.color = 'var(--success)';
 
-            startBtn.style.display = 'none';
-            stopBtn.style.display = 'block';
+                startBtn.style.display = 'none';
+                stopBtn.style.display = 'block';
 
-            webcamActive = true;
-            showToast('Camera activated', 'success');
+                webcamActive = true;
+                showToast('Camera activated successfully', 'success');
+            } catch (err) {
+                console.error('Webcam error:', err);
+                showToast('Failed to access camera. Please check permissions.', 'error');
+            }
         }
 
         function stopWebcam() {
+            if (webcamStream) {
+                // Stop all tracks
+                webcamStream.getTracks().forEach(track => track.stop());
+                webcamStream = null;
+            }
+
             const webcamFeed = document.getElementById("webcamFeed");
             const container = document.getElementById("webcamContainer");
             const status = document.getElementById("webcamStatus");
             const startBtn = document.getElementById("startWebcamBtn");
             const stopBtn = document.getElementById("stopWebcamBtn");
 
-            webcamFeed.style.display = "none";
-            webcamFeed.src = "";
-            webcamFeed.classList.remove('active');
+            // Clear the video source
+            webcamFeed.srcObject = null;
 
+            // Update UI
             container.classList.remove('webcam-active');
             status.textContent = 'Offline';
             status.style.color = '';
@@ -1531,7 +1420,25 @@
                 showToast('Please activate camera first', 'warning');
                 return;
             }
-            showToast('Frame captured', 'success');
+
+            const video = document.getElementById('webcamFeed');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            // Convert to blob and send to server
+            canvas.toBlob((blob) => {
+                // Here you can send the blob to your server for detection
+                // For now, just show success message
+                showToast('Frame captured successfully', 'success');
+                
+                // Optional: Display captured frame in results
+                const url = URL.createObjectURL(blob);
+                document.getElementById('outputImage').src = url;
+                document.getElementById('emptyResult').style.display = 'none';
+                document.getElementById('resultImageContainer').style.display = 'block';
+            }, 'image/jpeg', 0.9);
         }
 
         // Toast notification
@@ -1574,8 +1481,6 @@
             }
         });
 
-
-
         // Initialize drag and drop prevention
         document.addEventListener('dragover', (e) => e.preventDefault());
         document.addEventListener('drop', (e) => e.preventDefault());
@@ -1583,13 +1488,16 @@
         // Check authentication on page load
         function checkAuth() {
             const user = JSON.parse(localStorage.getItem('fireeye_user'));
+            const userMenu = document.getElementById('userMenu');
+
             if (!user) {
                 // No user logged in, redirect to auth page
                 window.location.href = '/auth';
             } else {
                 // Display user info
-                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userName').textContent = user.name || user.email.split('@')[0];
                 document.getElementById('userEmail').textContent = user.email;
+                userMenu.style.display = 'flex';
             }
         }
 
@@ -1601,6 +1509,11 @@
                 // Add loading state
                 logoutBtn.classList.add('loading');
                 logoutBtn.disabled = true;
+
+                // Stop webcam if active
+                if (webcamActive) {
+                    stopWebcam();
+                }
 
                 // Clear local storage
                 localStorage.removeItem('fireeye_user');
@@ -1619,52 +1532,19 @@
             }
         }
 
-        // Check auth on page load
-        document.addEventListener('DOMContentLoaded', checkAuth);
-
-        // Modify existing detectImage function to check auth
-        const originalDetectImage = detectImage;
-        detectImage = function () {
-            const user = JSON.parse(localStorage.getItem('fireeye_user'));
-            if (!user) {
-                showToast('Please login first', 'warning');
-                window.location.href = '/auth';
-                return;
-            }
-            originalDetectImage();
-        };
-
-        // Modify existing startWebcam function to check auth
-        const originalStartWebcam = startWebcam;
-        startWebcam = function () {
-            const user = JSON.parse(localStorage.getItem('fireeye_user'));
-            if (!user) {
-                showToast('Please login first', 'warning');
-                window.location.href = '/auth';
-                return;
-            }
-            originalStartWebcam();
-        };
-
         function goToHowItWorks() {
             window.location.href = '/how-it-works';
         }
 
-        // Check authentication on page load
-        function checkAuth() {
-            const user = JSON.parse(localStorage.getItem('fireeye_user'));
-            const userMenu = document.getElementById('userMenu');
-
-            if (!user) {
-                // No user logged in, redirect to auth page
-                window.location.href = '/auth';
-            } else {
-                // Display user info
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userEmail').textContent = user.email;
-                userMenu.style.display = 'flex';
+        // Clean up webcam on page unload
+        window.addEventListener('beforeunload', function() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
             }
-        }
+        });
+
+        // Check auth on page load
+        document.addEventListener('DOMContentLoaded', checkAuth);
     </script>
 </body>
 
